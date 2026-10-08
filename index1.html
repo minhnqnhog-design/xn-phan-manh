@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Xét nghiệm phân mảnh DNA tinh trùng – Tính hóa chất</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eef1f5;--card:#fff;--ink:#1d2733;--mute:#5d6b7c;--line:#d5dce5;--navy:#44546a;--navy-ink:#fff;
+--in:#fbe5d6;--in-b:#e8a073;--yel:#fff3b0;--yel-b:#d9b800;--out:#dfe5ee;--ok:#1f7a4d;--bad:#b3261e;--badbg:#fde8e6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141a22;--card:#1c2430;--ink:#e8edf3;--mute:#9aa8b8;--line:#33404f;--navy:#8fa3bd;--navy-ink:#10161d;--in:#4a3226;--in-b:#b9754b;--yel:#4d4416;--yel-b:#a89200;--out:#2a3646;--ok:#6fd3a0;--bad:#ff9a92;--badbg:#3d2321}}
+:root[data-theme="dark"]{--bg:#141a22;--card:#1c2430;--ink:#e8edf3;--mute:#9aa8b8;--line:#33404f;--navy:#8fa3bd;--navy-ink:#10161d;--in:#4a3226;--in-b:#b9754b;--yel:#4d4416;--yel-b:#a89200;--out:#2a3646;--ok:#6fd3a0;--bad:#ff9a92;--badbg:#3d2321}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Be Vietnam Pro",system-ui,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:980px;margin:0 auto;padding:20px 14px 60px}
+h1{font-size:1.5rem;line-height:1.25;margin:6px 0 4px;font-weight:700}
+h2{font-size:1.1rem;margin:0;font-weight:600}
+.sub{color:var(--mute);margin:0 0 14px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.85rem;color:var(--mute);margin-bottom:16px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:6px;border:1px solid var(--line)}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:16px}
+.head{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+.n{flex:none;width:32px;height:32px;border-radius:50%;background:var(--navy);color:var(--navy-ink);display:grid;place-items:center;font-weight:700}
+.do{margin:0 0 12px;color:var(--mute)}
+.do b{color:var(--ink)}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{font-size:.8rem;font-weight:600;color:var(--mute);line-height:1.3}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+input[type=text],input[type=number]{width:100%;font:inherit;color:inherit;background:var(--in);border:1px solid var(--in-b);border-radius:6px;padding:6px 8px;min-width:70px}
+input:focus-visible,button:focus-visible{outline:3px solid var(--navy);outline-offset:1px}
+.out{background:var(--out);border-radius:6px;padding:6px 8px;display:inline-block;min-width:70px;text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+td.num .out{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:8px 0}
+.box{background:var(--out);border-radius:8px;padding:10px 12px}
+.box small{display:block;color:var(--mute);font-size:.8rem}
+.box strong{font-size:1.25rem;font-variant-numeric:tabular-nums}
+.box.yel{background:var(--yel);border:1px solid var(--yel-b)}
+.box.in{background:var(--in);border:1px solid var(--in-b)}
+.box.in input{background:var(--card);font-size:1.1rem;font-weight:600;margin-top:2px}
+.warn{background:var(--badbg);color:var(--bad);border-radius:6px;padding:8px 10px;margin:8px 0;font-size:.9rem}
+.big{font-size:1.05rem}
+.chk{width:20px;height:20px;accent-color:var(--navy)}
+tr.done td{opacity:.5;text-decoration:line-through}
+tr.done td:last-child{text-decoration:none}
+button{font:inherit;border:1px solid var(--navy);background:var(--navy);color:var(--navy-ink);border-radius:8px;padding:8px 16px;cursor:pointer;font-weight:600}
+button.sm{padding:4px 10px;font-size:.85rem}
+button:disabled{opacity:.4;cursor:not-allowed}
+button.ghost{background:transparent;color:var(--navy)}
+td .tm{display:inline-block;min-width:4ch;font-weight:700;font-size:1.15rem;font-variant-numeric:tabular-nums;margin-right:8px}
+.tm.end{color:var(--ok)}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+label.opt{display:flex;gap:8px;align-items:center;font-size:.9rem}
+.empty{color:var(--mute);padding:8px 0}
+.note{font-size:.82rem;color:var(--mute);margin-top:8px}
+</style>
+</head>
+<body>
+<main>
+<h1>Xét nghiệm phân mảnh DNA tinh trùng</h1>
+<p class="sub">Nhập mẫu một lần, trang tự tính lượng hóa chất cho bốn bước thao tác.</p>
+<div class="legend"><span><i style="background:var(--in);border-color:var(--in-b)"></i>Ô cần nhập</span><span><i style="background:var(--out)"></i>Ô kết quả tự tính</span></div>
+
+<section id="inp">
+  <div class="head"><h2>Thông tin mẫu</h2></div>
+  <div class="wrap"><table>
+    <thead><tr><th>#</th><th>Tên mẫu</th><th class="num">Pha loãng với dung dịch bảo quản (lần)</th><th class="num">Mật độ ban đầu (10⁶/mL)</th><th class="num">Mật độ cuối cùng (10⁶/mL)</th><th><span class="sr" style="position:absolute;left:-9999px">Xóa</span></th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+  <div class="row" style="margin-top:10px">
+    <label class="opt"><input type="checkbox" id="reserve" class="chk" checked> Dự phòng hao hụt 1/5 khi hút tinh dịch (nhân 5/4)</label>
+    <button id="add" type="button">+ Thêm mẫu</button>
+    <button class="ghost" id="reset" type="button">Xóa dữ liệu nhập</button>
+  </div>
+  <div id="warn"></div>
+</section>
+
+<section id="s1">
+  <div class="head"><span class="n">1</span><h2>Pha hỗn hợp Reagent C + D</h2></div>
+  <p class="do">Pha chung một lần cho tất cả mẫu. Mỗi mẫu cần <b>600 µL Reagent C</b> và <b>3,6 µL Reagent D</b> (chỉ mẫu có mật độ ban đầu &gt; 1).</p>
+  <div class="grid">
+    <div class="box"><small>Số mẫu dùng hỗn hợp CD</small><strong id="nCD">0</strong></div>
+    <div class="box"><small>Reagent C tối thiểu (µL)</small><strong id="cMin">0,0</strong></div>
+    <div class="box"><small>Reagent D tối thiểu (µL)</small><strong id="dMin">0,0</strong></div>
+    <div class="box"><small>Hỗn hợp C+D tối thiểu (µL)</small><strong id="tMin">0,0</strong></div>
+    <div class="box"><small>Hỗn hợp C+D gợi ý (µL)</small><strong id="tSug">0,0</strong></div>
+  </div>
+  <div class="grid">
+    <div class="box in"><small>Hỗn hợp C+D thực tế sẽ pha (µL)</small><input type="number" id="actual" step="0.1" min="0" inputmode="decimal"></div>
+    <div class="box yel"><small>Reagent C thực tế (µL)</small><strong id="cAct">0,0</strong></div>
+    <div class="box yel"><small>Reagent D thực tế (µL)</small><strong id="dAct">0,0</strong></div>
+    <div class="box"><small>Lượng hao hụt dự phòng (µL)</small><strong id="waste">0,0</strong></div>
+  </div>
+  <div id="w1"></div>
+  <p class="note">Ô thực tế tự lấy theo lượng gợi ý; sửa lại nếu bạn pha lượng khác.</p>
+</section>
+
+<section id="s2">
+  <div class="head"><span class="n">2</span><h2>Thêm dung dịch A và tinh dịch</h2></div>
+  <p class="do">Với mỗi mẫu, cho dung dịch A và tinh dịch vào ống, tổng <b>100 µL</b>. Đánh dấu khi xong.</p>
+  <div class="wrap"><table><thead><tr><th>Xong</th><th>Mẫu</th><th class="num">Dung dịch A (µL)</th><th class="num">Tinh dịch hút (µL)</th></tr></thead><tbody id="t2"></tbody></table></div>
+</section>
+
+<section id="s3">
+  <div class="head"><span class="n">3</span><h2>Thêm 200 µL Reagent B, trộn, ủ 30 giây</h2></div>
+  <p class="do">Thêm <b>200 µL Reagent B</b> vào từng ống, trộn đều rồi ủ <b>30 giây</b>. Mỗi mẫu có đồng hồ riêng: bấm <b>Bắt đầu</b> ngay khi trộn xong ống đó.</p>
+    <div class="wrap"><table><thead><tr><th>Xong</th><th>Mẫu</th><th class="num">Reagent B (µL)</th><th>Ủ 30 giây</th></tr></thead><tbody id="t3"></tbody></table></div>
+</section>
+
+<section id="s4">
+  <div class="head"><span class="n">4</span><h2>Thêm 600 µL hỗn hợp C+D</h2></div>
+  <p class="do">Thêm <b>600 µL hỗn hợp C+D</b> (đã pha ở bước 1) vào từng ống.</p>
+  <div class="wrap"><table><thead><tr><th>Xong</th><th>Mẫu</th><th class="num">Hỗn hợp C+D (µL)</th></tr></thead><tbody id="t4"></tbody></table></div>
+</section>
+</main>
+<script>
+(function(){
+var N=10,UNIT=603.6,EXTRA=50.3,KEY="dnaFragCalc2",uid=0,tmr={},actx=null;
+var st={rows:[],reserve:true,actual:null,done:{}};
+function nr(o){o=o||{};return{id:++uid,n:o.n||"",c:o.c||"",d:o.d||""}}
+st.rows.push(nr());
+try{var s=JSON.parse(localStorage.getItem(KEY));if(s&&s.rows&&s.rows.length>0&&s.rows.length<=N){st.rows=s.rows.map(nr);st.reserve=s.reserve!==false;st.actual=s.actual}}catch(e){}
+function $(id){return document.getElementById(id)}
+function f(x){return isFinite(x)?x.toLocaleString("vi-VN",{minimumFractionDigits:1,maximumFractionDigits:1}):"–"}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({rows:st.rows,reserve:st.reserve,actual:st.actual}))}catch(e){}}
+function calc(r){
+  var c=parseFloat(r.c),d=parseFloat(r.d);
+  if(!(c>0&&d>0))return null;
+  var E=d/c,F=d>1?600:0,G=F*6/1000,I=200/E*(st.reserve?5/4:1);
+  return{E:E,F:F,G:G,I:I,A:100-I,over:I>100};
+}
+function esc(s){return String(s).replace(/[&<>"]/g,function(m){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]})}
+function build(){
+  var h="";
+  st.rows.forEach(function(r,i){
+    h+='<tr><td>'+(i+1)+'</td><td><input type="text" data-i="'+i+'" data-k="n" value="'+esc(r.n)+'" aria-label="Tên mẫu '+(i+1)+'"></td>'+
+    '<td class="num"><input type="number" step="any" min="0" inputmode="decimal" data-i="'+i+'" data-k="c" value="'+esc(r.c)+'" aria-label="Pha loãng mẫu '+(i+1)+'"></td>'+
+    '<td class="num"><input type="number" step="any" min="0" inputmode="decimal" data-i="'+i+'" data-k="d" value="'+esc(r.d)+'" aria-label="Mật độ ban đầu mẫu '+(i+1)+'"></td>'+
+    '<td class="num"><span class="out" id="E'+r.id+'">–</span></td><td><button type="button" class="ghost sm" data-del="'+i+'" aria-label="Xóa mẫu '+(i+1)+'"'+(st.rows.length<2?' disabled':'')+'>Xóa</button></td></tr>';
+  });
+  $("rows").innerHTML=h;
+  $("reserve").checked=st.reserve;
+  $("add").disabled=st.rows.length>=N;
+}
+function stepRows(key,list,cell){
+  if(!list.length)return '<tr><td colspan="5" class="empty">Nhập pha loãng và mật độ ban đầu của ít nhất một mẫu ở trên.</td></tr>';
+  return list.map(function(o){
+    var k=key+o.i,dn=st.done[k];
+    return '<tr class="'+(dn?'done':'')+'"><td><input type="checkbox" class="chk" data-done="'+k+'" '+(dn?'checked':'')+' aria-label="Xong '+esc(o.name)+'"></td><td>'+esc(o.name)+'</td>'+cell(o)+'</tr>';
+  }).join("");
+}
+function update(){
+  var list=[],warns=[],nCD=0;
+  st.rows.forEach(function(r,i){
+    var k=calc(r),e=$("E"+r.id);
+    e.textContent=k?f(k.E):"–";
+    if(!k)return;
+    var name=r.n.trim()||("Mẫu "+(i+1));
+    list.push({i:r.id,name:name,k:k});
+    if(k.F>0)nCD++;
+    if(k.over)warns.push(name+": thể tích tinh dịch cần hút ("+f(k.I)+" µL) vượt 100 µL, không còn chỗ cho dung dịch A. Kiểm tra lại mật độ hoặc hệ số pha loãng.");
+    if(k.F===0)warns.push(name+": mật độ ban đầu ≤ 1 nên không tính hỗn hợp C+D cho mẫu này (theo bảng tính gốc).");
+  });
+  $("warn").innerHTML=warns.map(function(w){return'<div class="warn">'+esc(w)+'</div>'}).join("");
+  var cMin=nCD*600,dMin=nCD*3.6,tMin=cMin+dMin;
+  var sug=nCD===0?0:(nCD===1?UNIT:nCD*UNIT+EXTRA);
+  $("nCD").textContent=nCD;$("cMin").textContent=f(cMin);$("dMin").textContent=f(dMin);$("tMin").textContent=f(tMin);$("tSug").textContent=f(sug);
+  var act=(st.actual===null||st.actual==="")?sug:parseFloat(st.actual);
+  var ai=$("actual");
+  if(document.activeElement!==ai)ai.value=(st.actual===null||st.actual==="")?(sug?sug.toFixed(1):""):st.actual;
+  var cA=tMin>0?act*cMin/tMin:0,dA=tMin>0?act*dMin/tMin:0;
+  $("cAct").textContent=f(cA);$("dAct").textContent=f(dA);$("waste").textContent=f(act-tMin);
+  $("w1").innerHTML=(tMin>0&&act<tMin)?'<div class="warn">Lượng thực tế nhỏ hơn mức tối thiểu ('+f(tMin)+' µL), không đủ cho các mẫu.</div>':"";
+  $("t2").innerHTML=stepRows("a",list,function(o){return'<td class="num"><span class="out">'+f(o.k.A)+'</span></td><td class="num"><span class="out">'+f(o.k.I)+'</span></td>'});
+  $("t3").innerHTML=stepRows("b",list,function(o){var t=tmr[o.i],run=t&&t.h,end=t&&!t.h;
+    return'<td class="num"><span class="out">200,0</span></td><td><span class="tm'+(end?' end':'')+'" id="tm'+o.i+'">'+(run?t.s+' s':end?'Đủ 30 s':'30 s')+'</span><button type="button" class="sm" data-tm="'+o.i+'">'+(run?'Đếm lại':end?'Đếm lại':'Bắt đầu')+'</button></td>'});
+  var l4=list.filter(function(o){return o.k.F>0});
+  $("t4").innerHTML=stepRows("c",l4,function(){return'<td class="num"><span class="out">600,0</span></td>'});
+}
+document.addEventListener("input",function(e){
+  var t=e.target;
+  if(t.dataset.k){st.rows[+t.dataset.i][t.dataset.k]=t.value;save();update()}
+  else if(t.id==="actual"){st.actual=t.value;save();update()}
+});
+document.addEventListener("change",function(e){
+  var t=e.target;
+  if(t.id==="reserve"){st.reserve=t.checked;save();update()}
+  else if(t.dataset.done){st.done[t.dataset.done]=t.checked;update()}
+  else if(t.id==="actual"){update()}
+});
+function stopT(id){if(tmr[id]&&tmr[id].h)clearInterval(tmr[id].h);delete tmr[id]}
+$("reset").onclick=function(){Object.keys(tmr).forEach(stopT);st.rows=[nr()];st.actual=null;st.done={};save();build();update()};
+$("add").onclick=function(){if(st.rows.length>=N)return;st.rows.push(nr());save();build();update();var q=document.querySelectorAll('input[data-k="n"]');q[q.length-1].focus()};
+function beep(){try{var o=actx.createOscillator();o.connect(actx.destination);o.frequency.value=880;o.start();setTimeout(function(){o.stop()},500)}catch(e){}}
+document.addEventListener("click",function(e){
+  var t=e.target;
+  if(t.dataset.del!==undefined){var r=st.rows.splice(+t.dataset.del,1)[0];stopT(r.id);save();build();update()}
+  else if(t.dataset.tm){
+    var id=t.dataset.tm;
+    try{actx=actx||new(window.AudioContext||window.webkitAudioContext)()}catch(x){}
+    stopT(id);
+    var o={s:30,h:null};tmr[id]=o;
+    o.h=setInterval(function(){
+      o.s--;
+      if(o.s<=0){clearInterval(o.h);o.h=null;beep();update();if(navigator.vibrate)try{navigator.vibrate(300)}catch(x){}}
+      else{var el=$("tm"+id);if(el)el.textContent=o.s+" s"}
+    },1000);
+    update();
+  }
+});
+build();update();
+})();
+</script>
+</body>
+</html>
